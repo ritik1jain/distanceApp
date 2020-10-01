@@ -16,60 +16,35 @@ class Result extends Component {
         let latdest;
         let lngdest;
         const {origin, dest} = this.props.state;
-        axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json', {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            },
-            params: {
-                address: origin,
-                key: GOOGLE_MAPS_API_KEY
-            }
-        })
-        .then(function(response){
-           latorigin = response.data.results[0].geometry.location.lat;
-             lngorigin = response.data.results[0].geometry.location.lng;
+        axios.get(`https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${GOOGLE_MAPS_API_KEY}&searchtext=${origin}`)
+        .then(function(res){
+            console.log(res);
+           latorigin = res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
+             lngorigin = res.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude;
         })
         .catch(function(error) {
             console.log(error);
         });
 
-        axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json', {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            },
-            
-            params: {
-                address: dest,
-                key: GOOGLE_MAPS_API_KEY
-            }
-        })
-        .then(function(response){
-            console.log(response);
-           latdest = response.data.results[0].geometry.location.lat;
-             lngdest = response.data.results[0].geometry.location.lng;
+        axios.get(`https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${GOOGLE_MAPS_API_KEY}&searchtext=${dest}`)
+        .then(function(res){
+            console.log(res);
+            latdest = res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
+            lngdest = res.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude;
+            console.log(latdest);
         })
         .catch(function(error) {
             console.log(error);
         });
 
-        axios.get('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json', {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            },
-            
-            params: {
-                origins:latorigin,lngorigin,
-                destinations:latdest,lngdest,
-                key:GOOGLE_MAPS_API_KEY,
-                region:'IN'
-            }
-        })
+        axios.get(`https://route.ls.hereapi.com/routing/7.2/calculateroute.json?apiKey=${GOOGLE_MAPS_API_KEY}&waypoint0=geo!${latorigin},${lngorigin}&waypoint1=geo!${latdest},${lngdest}&mode=fastest;car;traffic:disabled`)
         .then(function(response) {
-            if(response.status === "OK")
-            {
-                distance = response.rows[0].elements[0].distance.text;
-                time= response.rows[0].elements[0].duration.text;
-            }
+            // if(response.status === "OK")
+            // {
+            //     distance = response.rows[0].elements[0].distance.text;
+            //     time= response.rows[0].elements[0].duration.text;
+            // }
+            console.log(response);
         })
         .catch(function(error) {
             console.log(error);
