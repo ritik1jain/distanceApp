@@ -21,22 +21,19 @@ class Result extends Component {
             console.log(res);
            latorigin = res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
              lngorigin = res.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude;
-             console.log(latorigin+','+lngorigin)
-    
+             
         axios.get(`https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${GOOGLE_MAPS_API_KEY}&searchtext=${dest}`)
         .then(function(res){
             console.log(res);
             latdest = res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
             lngdest = res.data.Response.View[0].Result[0].Location.DisplayPosition.Longitude;
-            console.log(latdest);
-            console.log(typeof lngdest)
-        
+            
         axios.get(`https://route.ls.hereapi.com/routing/7.2/calculateroute.json?apiKey=${GOOGLE_MAPS_API_KEY}&waypoint0=geo!${latorigin},${lngorigin}&waypoint1=geo!${latdest},${lngdest}&mode=fastest;car;traffic:disabled`)
         .then(function(response) {
                 time = response.data.response.route[0].summary.baseTime
                 distance= response.data.response.route[0].summary.distance
         
-            console.log(response);
+            console.log(time, distance);
         })})})
         .catch(function(error) {
             console.log(error);
