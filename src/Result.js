@@ -24,7 +24,7 @@ class Result extends Component {
     const self = this;
     axios
       .get(
-        `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${GOOGLE_MAPS_API_KEY}&searchtext=${origin}`
+        `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${GOOGLE_MAPS_API_KEY}&searchtext=${origin}&country:IND`
       )
       .then(function (res) {
         console.log(res);
@@ -36,7 +36,7 @@ class Result extends Component {
 
         axios
           .get(
-            `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${GOOGLE_MAPS_API_KEY}&searchtext=${dest}`
+            `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${GOOGLE_MAPS_API_KEY}&searchtext=${dest}country:IND`
           )
           .then(function (res) {
             console.log(res);

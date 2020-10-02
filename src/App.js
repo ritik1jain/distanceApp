@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   toggleResult() {
-    this.setState({ showResult: true });
+    this.setState({ showResult: !this.state.showResult });
   }
 
   handleBlurr = (field) => (evt) => {
