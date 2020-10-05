@@ -80,7 +80,7 @@ class App extends Component {
             <h3>Distance between zipcodes</h3>
           </div>
           <div className='col-12 col-md-9'>
-            <Form onSubmit={this.handleSubmit} noValidate>
+            <Form onSubmit={this.handleSubmit}>
               <FormGroup row>
                 <Label htmlFor='origin' md={2}>
                   Origin
@@ -94,7 +94,7 @@ class App extends Component {
                     invalid={errors.origin !== ''}
                     onChange={this.handleChange}
                     required={true}
-                    noValidate
+                  
                   />
                   <FormFeedback>{errors.origin}</FormFeedback>
                 </Col>
@@ -112,7 +112,7 @@ class App extends Component {
                     invalid={errors.dest !== ''}
                     onChange={this.handleChange}
                     required={true}
-                    noValidate
+                  
                   />
                   <FormFeedback>{errors.dest}</FormFeedback>
                 </Col>
