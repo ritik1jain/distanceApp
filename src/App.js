@@ -5,8 +5,7 @@ import {
   Button,
   Form,
   FormGroup,
-  Col,
-  Row,
+  Col, 
   FormFeedback,
 } from 'reactstrap';
 import Result from './Result';

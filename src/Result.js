@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Loading } from './Loading';
 import axios from 'axios';
 import GOOGLE_MAPS_API_KEY from './secrets';
+import Map from './Map';
 
 class Result extends Component {
   constructor(props) {
@@ -10,6 +11,14 @@ class Result extends Component {
       distance: null,
       time: null,
       loading: true,
+      lat: {
+        origin: null,
+        dest: null
+      },
+      lng: {
+        origin: null,
+        dest: null
+      } 
     };
   }
   
@@ -72,6 +81,14 @@ class Result extends Component {
                     distance: distance,
                     time: time,
                     loading: false,
+                    lat: {
+                      origin: latorigin,
+                      dest: latdest
+                    },
+                    lng: {
+                      origin: lngorigin,
+                      dest: lngdest
+                    }
                   });
                 
               });
@@ -90,6 +107,8 @@ class Result extends Component {
           {this.state.loading ? <Loading /> : this.state.distance}
           <h4>Travel duration:</h4>
           {this.state.loading ? <Loading /> : this.state.time}
+          <h4>Route:</h4>
+          {this.state.loading ? <Loading /> : <Map lat={this.state.lat} lng={this.state.lng}/>}
         </div>
       );
     }
