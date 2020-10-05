@@ -27,7 +27,6 @@ class Result extends Component {
         `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${GOOGLE_MAPS_API_KEY}&searchtext=${origin}&country=IND`
       )
       .then(function (res) {
-        console.log(res);
         latorigin =
           res.data.Response.View[0].Result[0].Location.DisplayPosition.Latitude;
         lngorigin =
@@ -39,7 +38,6 @@ class Result extends Component {
             `https://geocoder.ls.hereapi.com/6.2/geocode.json?apiKey=${GOOGLE_MAPS_API_KEY}&searchtext=${dest}&country=IND`
           )
           .then(function (res) {
-            console.log(res);
             latdest =
               res.data.Response.View[0].Result[0].Location.DisplayPosition
                 .Latitude;
@@ -70,7 +68,6 @@ class Result extends Component {
                   time= min + ' mins';
                 }
 
-                console.log(response);
                 self.setState({
                     distance: distance,
                     time: time,
