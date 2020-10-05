@@ -18,7 +18,8 @@ class Result extends Component {
       lng: {
         origin: null,
         dest: null
-      } 
+      },
+      error: ''
     };
   }
   
@@ -90,26 +91,42 @@ class Result extends Component {
                       dest: lngdest
                     }
                   });
-                
-              });
-          });
-          
+              })
+          })
+          .catch(function (error) {
+            console.log(error);
+            self.setState({
+              error: 'Entered destination pin does not exists. Provide valid pin code'
+            })
+          });   
       })
       .catch(function (error) {
         console.log(error);
+        self.setState({
+          error: 'Entered origin pin does not exists. Provide valid pin code'
+        })
       });
+
   }
+
+  componentWillUnmount() {
+    this.props.toggle();
+  }
+
   render() {
     
-      return (
+      return (<>
+        {this.state.loading ? this.state.error.length>0 ? <h5>{this.state.error}</h5> : <Loading /> :
         <div className='col-12 col-md-9'>
-          <h4> Distance:</h4>
-          {this.state.loading ? <Loading /> : this.state.distance}
-          <h4>Travel duration:</h4>
-          {this.state.loading ? <Loading /> : this.state.time}
-          <h4>Route:</h4>
-          {this.state.loading ? <Loading /> : <Map lat={this.state.lat} lng={this.state.lng}/>}
-        </div>
+        <h4> Distance:</h4>
+        {this.state.loading  ? <Loading /> : this.state.distance}
+        <h4>Travel duration:</h4>
+        {this.state.loading ?  <Loading /> : this.state.time}
+        <h4>Route:</h4>
+        {this.state.loading ? <Loading /> : <Map lat={this.state.lat} lng={this.state.lng}/>}
+      </div>
+      }</>
+        
       );
     }
   }

@@ -66,7 +66,7 @@ class App extends Component {
   }
 
   toggleResult() {
-    this.setState({ showResult: !this.state.showResult });
+    this.setState({ showResult: !this.state.showResult }); 
   }
 
   
@@ -94,7 +94,6 @@ class App extends Component {
                     invalid={errors.origin !== ''}
                     onChange={this.handleChange}
                     required={true}
-                  
                   />
                   <FormFeedback>{errors.origin}</FormFeedback>
                 </Col>
@@ -126,7 +125,7 @@ class App extends Component {
               </FormGroup>
             </Form>
           </div>
-          {showResult && <Result state={{ ...this.state }}></Result>}
+          {showResult && <Result state={{ ...this.state }} toggle={this.toggleResult}></Result>}
         </div>
       </div>
     );
