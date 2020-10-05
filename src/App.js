@@ -73,8 +73,7 @@ class App extends Component {
   
   render() {
     let showResult = this.state.showResult;
-    // const errors = this.validate(this.state.origin, this.state.dest);
-   const errors = this.state.errors;
+     const errors = this.state.errors;
     return (
       <div className='container'>
         <div className='row'>
@@ -93,7 +92,7 @@ class App extends Component {
                     id='origin'
                     name='origin'
                     value={this.state.origin}
-                    invalid={errors.dest !== ''}
+                    invalid={errors.origin !== ''}
                     onChange={this.handleChange}
                     required={true}
                     noValidate
