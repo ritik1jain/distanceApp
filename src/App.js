@@ -11,6 +11,12 @@ import {
 } from 'reactstrap';
 import Result from './Result';
 
+const validateForm = errors => {
+  let valid = true;
+  Object.values(errors).forEach(val => val.length>0 && (valid = false));
+  return valid;
+};
+
 class App extends Component {
   constructor() {
     super();
@@ -18,53 +24,57 @@ class App extends Component {
       origin: '',
       dest: '',
       showResult: false,
-      touched: {
-        origin: false,
-        dest: false
-      }
+      errors: {
+        origin: '',
+        dest: '',
+      },
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleResult = this.toggleResult.bind(this);
-    this.handleBlurr = this.handleBlurr.bind(this);
+    
   }
 
   handleChange(e) {
+    e.preventDefault();
+    const {name, value} = e.target;
+    let errors = this.state.errors;
+
+    switch (name) {
+      case 'origin':
+        errors.origin = value.length !== 6 ? 'Provide valid 6 digit pincode' : '';
+        break;
+      case 'dest':
+        errors.dest = value.length !== 6 ? 'Provide valid 6 digit pincode' : '';
+        break;
+      default: break;
+    }
     this.setState({
-      [e.target.name]: e.target.value,
+      [name]: value,
+      errors
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.toggleResult();
+    if(validateForm(this.state.errors)) {
+      console.info('Valid Form')
+      this.toggleResult();
+    }else {
+      console.error('Invalid form');
+    }
+    
   }
 
   toggleResult() {
     this.setState({ showResult: !this.state.showResult });
   }
 
-  handleBlurr = (field) => (evt) => {
-    this.setState({
-      touched: { ...this.state.touched, [field]: true },
-    });
-  }
-
-  validate(origin, dest) {
-    const errors = {
-      origin: '',
-      dest: '',
-    };
-    if (this.state.touched.origin && origin.length !== 6)
-      errors.origin = 'Provide valid 6 digit pincode';
-    if (this.state.touched.dest && dest.length !== 6)
-      errors.dest = 'Provide valid 6 digit pincode';
-
-    return errors;
-  }
+  
   render() {
     let showResult = this.state.showResult;
-    const errors = this.validate(this.state.origin, this.state.dest);
+    // const errors = this.validate(this.state.origin, this.state.dest);
+   const errors = this.state.errors;
     return (
       <div className='container'>
         <div className='row'>
@@ -72,7 +82,7 @@ class App extends Component {
             <h3>Distance between zipcodes</h3>
           </div>
           <div className='col-12 col-md-9'>
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} noValidate>
               <FormGroup row>
                 <Label htmlFor='origin' md={2}>
                   Origin
@@ -83,13 +93,12 @@ class App extends Component {
                     id='origin'
                     name='origin'
                     value={this.state.origin}
-                    valid={errors.origin === ''}
-					invalid={errors.dest !== ''}
-					onBlur={this.handleBlurr('origin')}
-					onChange={this.handleChange}
-					required={true}
+                    invalid={errors.dest !== ''}
+                    onChange={this.handleChange}
+                    required={true}
+                    noValidate
                   />
-				  <FormFeedback>{errors.origin}</FormFeedback>
+                  <FormFeedback>{errors.origin}</FormFeedback>
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -97,18 +106,17 @@ class App extends Component {
                   Destination
                 </Label>
                 <Col md={10}>
-				<Input
+                  <Input
                     type='text'
                     id='dest'
                     name='dest'
                     value={this.state.dest}
-                    valid={errors.dest === ''}
-					invalid={errors.dest !==''}
-					onBlur={this.handleBlurr('dest')}
-					onChange={this.handleChange}
-					required={true}
+                    invalid={errors.dest !== ''}
+                    onChange={this.handleChange}
+                    required={true}
+                    noValidate
                   />
-				  <FormFeedback>{errors.dest}</FormFeedback>
+                  <FormFeedback>{errors.dest}</FormFeedback>
                 </Col>
               </FormGroup>
               <FormGroup row>
