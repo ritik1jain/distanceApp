@@ -18,7 +18,7 @@ class Map extends Component {
         const latdest = lat.dest;
         const lngdest = lng.dest;
         
-        return (<img src={ this.state.url + `apiKey=${GOOGLE_MAPS_API_KEY}&waypoint0=${latorigin},${lngorigin}&waypoint1=${latdest},${lngdest}&poix0=${latorigin},${lngorigin};00a3f2;00a3f2;17;.&poix1=${latdest},${lngdest};white;white;17;.&lc=1652B4&lw=10&t=5&ppi=310&w=800&h=300`} alt="Map" />       )
+        return (<img src={ this.state.url + `apiKey=${GOOGLE_MAPS_API_KEY}&waypoint0=${latorigin},${lngorigin}&waypoint1=${latdest},${lngdest}&poix0=${latorigin},${lngorigin};00a3f2;00a3f2;21;.&poix1=${latdest},${lngdest};white;white;21;.&lc=1652B4&lw=10&t=5&ppi=310&w=800&h=300`} alt="Map" />       )
     }
 }
 
