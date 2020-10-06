@@ -3,8 +3,7 @@ import { Loading } from './Loading';
 import axios from 'axios';
 import GOOGLE_MAPS_API_KEY from './secrets';
 import Map from './Map';
-import './result.css';
-
+import './result.css'
 class Result extends Component {
   constructor(props) {
     super(props);
@@ -97,14 +96,15 @@ class Result extends Component {
             console.log(error);
             self.setState({
               error:
-                'Entered destination pin does not exists. Provide valid pin code',
+                'Entered destination pin does not exists. Provide valid pin code.',
             });
           });
       })
       .catch(function (error) {
         console.log(error);
         self.setState({
-          error: 'Entered origin pin does not exists. Provide valid pin code',
+          error:
+            'Entered destination pin does not exists. Provide valid pin code.',
         });
       });
   }
@@ -118,35 +118,32 @@ class Result extends Component {
       <>
         {this.state.loading ? (
           this.state.error.length > 0 ? (
-            <h5 className="error">{this.state.error}</h5>
+            <h5>{this.state.error}</h5>
           ) : (
             <Loading />
           )
         ) : (
-          <div className="row">
-            
-            <div className="col-12 result">
-              <div className="row">
-                <h4 className="col-6">
-                Distance:
-                {this.state.loading ? <Loading /> : this.state.distance}
-              </h4>
-              <h4 className="col-6">
-                Travel duration:
-                {this.state.loading ? <Loading /> : this.state.time}
-              </h4>
+          <div className='row '>
+            <div className='col-12 pad'>
+              <div className='row justify-content-between result'>
+                <h4 className='col-5 '>
+                  Distance:
+                  {this.state.loading ? <Loading /> : <span>{' '}{this.state.distance}</span>}
+                </h4>
+                <h4 className='col-5 '>
+                  Travel duration:
+                  {this.state.loading ? <Loading /> : <span>{' '}{this.state.time}</span>}
+                </h4>
               </div>
+              <div className="row justify-content-start"><h4 className='col-12'>Route:</h4>
+              {this.state.loading ? (
+                <Loading />
+              ) : (
+                <Map lat={this.state.lat} lng={this.state.lng} />
+              )}</div>
               
             </div>
-            <h4>Route:</h4>
-            {this.state.loading ? (
-              <Loading />
-            ) : (
-              <Map lat={this.state.lat} lng={this.state.lng} />
-            )}
           </div>
-          
-          
         )}
       </>
     );

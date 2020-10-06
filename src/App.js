@@ -9,6 +9,7 @@ import {
   FormFeedback,
 } from 'reactstrap';
 import Result from './Result';
+import './App.css';
 
 const validateForm = (errors) => {
   let valid = true;
@@ -73,24 +74,23 @@ class App extends Component {
     let showResult = this.state.showResult;
     const errors = this.state.errors;
     return (
-      <div className='container'>
+      <div className='container App'>
         <div className='row'>
           <div className='col-12'>
-            <h3>DISTANCE BETWEEN ZIPCODES</h3>
+            <h3 id="head" className='text-center heading text-uppercase header'>
+              Distance between zipcodes
+            </h3>
           </div>
-          </div>
-          <div className='row'>
-            <div className='col-12'>
-              <Form onSubmit={this.handleSubmit} className="row">
-                <Col className="col-md-6">
-                  <FormGroup row>
-                    <Col md={2}>
-                      <Label htmlFor='origin'>
-                        Origin
-                      </Label>
-                    </Col>
-                    <Col md={6}>
-                      <Input
+          <div className='col-12'>
+            <Form onSubmit={this.handleSubmit}>
+              <div className='row justify-content-between'>
+                <div className='col-6'>
+                  <FormGroup className="row">
+                    <Label htmlFor='origin' className="label col-3">
+                      Origin:
+                    </Label>
+                    <Col className="col-8">
+                      <Input className="inp"
                         type='text'
                         id='origin'
                         name='origin'
@@ -102,15 +102,14 @@ class App extends Component {
                       <FormFeedback>{errors.origin}</FormFeedback>
                     </Col>
                   </FormGroup>
-                </Col>
-                <Col className="col-md-6">
-                  <FormGroup row>
-                    <Col  md={2}><Label htmlFor='dest'>
-                      Destination
+                </div>
+                <div className='col-6'>
+                  <FormGroup className="row">
+                    <Label htmlFor='dest'  className="label col-3">
+                      Destination:
                     </Label>
-                    </Col>
-                    <Col md={6}>
-                      <Input
+                    <Col className="col-8 ">
+                      <Input className="inp"
                         type='text'
                         id='dest'
                         name='dest'
@@ -122,26 +121,26 @@ class App extends Component {
                       <FormFeedback>{errors.dest}</FormFeedback>
                     </Col>
                   </FormGroup>
-                </Col>
-                <Col className="offset-md-10">
+                </div>
+                </div>
+                <div className="row justify-content-end">
+                <div className='col-6'>
                   <FormGroup row>
-                    <Col>
-                      <Button size="lg" type='submit' color='primary'>
+                    <Col md={{ size: 8, offset:3 }}>
+                      <Button type='submit' size="sm" block className="btnn">
                         Calculate
                       </Button>
                     </Col>
                   </FormGroup>
-                </Col>
-              </Form>
-            </div>
+                </div>
+                </div>
+                
+            </Form>
           </div>
-          {showResult && (
-            <Result
-              state={{ ...this.state }}
-              toggle={this.toggleResult}
-            ></Result>
-          )}
         </div>
+        <div className="col-12">{showResult && <Result state={{ ...this.state }} toggle={this.toggleResult}></Result>}
+     </div>
+         </div>
     );
   }
 }
