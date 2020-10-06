@@ -3,6 +3,7 @@ import { Loading } from './Loading';
 import axios from 'axios';
 import GOOGLE_MAPS_API_KEY from './secrets';
 import Map from './Map';
+import './result.css';
 
 class Result extends Component {
   constructor(props) {
@@ -13,16 +14,16 @@ class Result extends Component {
       loading: true,
       lat: {
         origin: null,
-        dest: null
+        dest: null,
       },
       lng: {
         origin: null,
-        dest: null
+        dest: null,
       },
-      error: ''
+      error: '',
     };
   }
-  
+
   componentWillMount() {
     let distance;
     let time;
@@ -62,51 +63,50 @@ class Result extends Component {
               .then(function (response) {
                 time = response.data.response.route[0].summary.baseTime;
                 distance = response.data.response.route[0].summary.distance;
-                let hr,min,km,m;
-                if(distance>1000){
-                  km = Math.floor(distance/1000);
-                  m = distance%1000;
+                let hr, min, km, m;
+                if (distance > 1000) {
+                  km = Math.floor(distance / 1000);
+                  m = distance % 1000;
                   distance = km + ' Km ' + m + ' m';
                 }
-                if(time>3600)
-                {
-                  hr = Math.floor(time/3600);
-                  min= Math.floor((time-hr*3600)/60)
-                  time= hr + ' Hr ' + min + ' min';
-                } else if (time>60){
-                  min = Math.floor(time/60);
-                  time= min + ' mins';
+                if (time > 3600) {
+                  hr = Math.floor(time / 3600);
+                  min = Math.floor((time - hr * 3600) / 60);
+                  time = hr + ' Hr ' + min + ' min';
+                } else if (time > 60) {
+                  min = Math.floor(time / 60);
+                  time = min + ' mins';
                 }
 
                 self.setState({
-                    distance: distance,
-                    time: time,
-                    loading: false,
-                    lat: {
-                      origin: latorigin,
-                      dest: latdest
-                    },
-                    lng: {
-                      origin: lngorigin,
-                      dest: lngdest
-                    }
-                  });
-              })
+                  distance: distance,
+                  time: time,
+                  loading: false,
+                  lat: {
+                    origin: latorigin,
+                    dest: latdest,
+                  },
+                  lng: {
+                    origin: lngorigin,
+                    dest: lngdest,
+                  },
+                });
+              });
           })
           .catch(function (error) {
             console.log(error);
             self.setState({
-              error: 'Entered destination pin does not exists. Provide valid pin code'
-            })
-          });   
+              error:
+                'Entered destination pin does not exists. Provide valid pin code',
+            });
+          });
       })
       .catch(function (error) {
         console.log(error);
         self.setState({
-          error: 'Entered origin pin does not exists. Provide valid pin code'
-        })
+          error: 'Entered origin pin does not exists. Provide valid pin code',
+        });
       });
-
   }
 
   componentWillUnmount() {
@@ -114,22 +114,43 @@ class Result extends Component {
   }
 
   render() {
-    
-      return (<>
-        {this.state.loading ? this.state.error.length>0 ? <h5>{this.state.error}</h5> : <Loading /> :
-        <div className='col-12 col-md-9'>
-        <h4> Distance:</h4>
-        {this.state.loading  ? <Loading /> : this.state.distance}
-        <h4>Travel duration:</h4>
-        {this.state.loading ?  <Loading /> : this.state.time}
-        <h4>Route:</h4>
-        {this.state.loading ? <Loading /> : <Map lat={this.state.lat} lng={this.state.lng}/>}
-      </div>
-      }</>
-        
-      );
-    }
+    return (
+      <>
+        {this.state.loading ? (
+          this.state.error.length > 0 ? (
+            <h5 className="error">{this.state.error}</h5>
+          ) : (
+            <Loading />
+          )
+        ) : (
+          <div className="row">
+            
+            <div className="col-12 result">
+              <div className="row">
+                <h4 className="col-6">
+                Distance:
+                {this.state.loading ? <Loading /> : this.state.distance}
+              </h4>
+              <h4 className="col-6">
+                Travel duration:
+                {this.state.loading ? <Loading /> : this.state.time}
+              </h4>
+              </div>
+              
+            </div>
+            <h4>Route:</h4>
+            {this.state.loading ? (
+              <Loading />
+            ) : (
+              <Map lat={this.state.lat} lng={this.state.lng} />
+            )}
+          </div>
+          
+          
+        )}
+      </>
+    );
   }
-
+}
 
 export default Result;
