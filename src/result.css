@@ -1,5 +1,5 @@
 .result {
-    border: 2px solid #0ceb1e;
+    border: 2px solid #4eae6f;
     padding: 5px 0px 5px 0px;
 }
 
@@ -8,6 +8,11 @@ h4 {
     color: black;
     font-size: 20px;
     padding-top: 5px;
+    
+}
+
+h4.col-5{
+    padding-right: 0px;
 }
 
 .pad {

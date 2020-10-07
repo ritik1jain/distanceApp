@@ -74,23 +74,28 @@ class App extends Component {
     let showResult = this.state.showResult;
     const errors = this.state.errors;
     return (
-      <div className='container App'>
+      <div className='container'>
         <div className='row'>
           <div className='col-12'>
-            <h3 id="head" className='text-center heading text-uppercase header'>
+            <h3 id='head' className='text-center heading text-uppercase header'>
               Distance between zipcodes
             </h3>
           </div>
-          <div className='col-12'>
-            <Form onSubmit={this.handleSubmit}>
+          </div>
+          <div className="row">
+            <Form onSubmit={this.handleSubmit} className="col-12">
               <div className='row justify-content-between'>
                 <div className='col-6'>
-                  <FormGroup className="row">
-                    <Label htmlFor='origin' className="text-center label col-3 col-sm-3">
+                  <FormGroup className='row'>
+                    <Label
+                      htmlFor='origin'
+                      className='text-center label col-md-3 col-sm-12'
+                    >
                       Origin:
                     </Label>
-                    <Col className="col-8 col-sm-8">
-                      <Input className="inp"
+                    <Col className='col-md-8 col-sm-12'>
+                      <Input
+                        className='inp'
                         type='text'
                         id='origin'
                         name='origin'
@@ -103,13 +108,15 @@ class App extends Component {
                     </Col>
                   </FormGroup>
                 </div>
+                
                 <div className='col-6'>
-                  <FormGroup className="row">
-                    <Label htmlFor='dest'  className="text-center label col-3">
+                  <FormGroup className='row'>
+                    <Label htmlFor='dest' className='text-center label col-md-3 col-sm-12'>
                       Destination:
                     </Label>
-                    <Col className="col-8 ">
-                      <Input className="inp"
+                    <Col className='col-md-8 offset-md-1 col-sm-12 '>
+                      <Input
+                        className='inp'
                         type='text'
                         id='dest'
                         name='dest'
@@ -121,26 +128,31 @@ class App extends Component {
                       <FormFeedback>{errors.dest}</FormFeedback>
                     </Col>
                   </FormGroup>
+                  </div>
                 </div>
-                </div>
-                <div className="row justify-content-end">
-                <div className='col-6'>
-                  <FormGroup className="row justify-content-end">
-                    <Col className="col-5 pd">
-                      <Button type='submit' size="sm" block className="btnn">
+              <div className='row justify-content-end'>
+                <div className='col-md-6 col-sm-6'>
+                  <FormGroup className="bt">    
+                      <Button type='submit' size='sm' className='btnn'>
                         Calculate
                       </Button>
-                    </Col>
                   </FormGroup>
                 </div>
-                </div>
-                
+              </div>
             </Form>
+          
+          </div>
+          <div className="row"> 
+          <div className='col-12'>
+            {showResult && (
+              <Result
+                state={{ ...this.state }}
+                toggle={this.toggleResult}
+              ></Result>
+            )}
           </div>
         </div>
-        <div className="col-12">{showResult && <Result state={{ ...this.state }} toggle={this.toggleResult}></Result>}
-     </div>
-         </div>
+      </div>
     );
   }
 }

@@ -122,9 +122,7 @@ class Result extends Component {
           ) : (
             <Loading />
           )
-        ) : (
-          <div className='row '>
-            <div className='col-12 pad'>
+        ) : (<>
               <div className='row justify-content-between result'>
                 <h4 className='col-5 '>
                   Distance:
@@ -141,9 +139,7 @@ class Result extends Component {
               ) : (
                 <Map lat={this.state.lat} lng={this.state.lng} />
               )}</div>
-              
-            </div>
-          </div>
+              </>
         )}
       </>
     );

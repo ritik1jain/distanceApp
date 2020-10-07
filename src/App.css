@@ -1,23 +1,20 @@
-.App {
-  font-weight: 400;
-  color: black;
-}
 .header {
-  color: #0ceb1e;
+  color: #4eae6f;
 
 }
 #head {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   margin-top: 50px;
-  color: #0ceb1e;
+  color: #4eae6f;
 
 }
 .btnn {
-  background-color: #0ceb1e;
+  background-color: #4eae6f;
   color: white;
   font-size: 18px;
   font-weight: 600;
-  width: 175px;
+  width: 30%;
+  float: right;
 }
 
 .label {
@@ -42,3 +39,5 @@
 .pd {
   padding-left: 3px;
 }
+
+
