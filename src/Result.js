@@ -48,17 +48,19 @@ class Result extends Component {
             `https://api.tomtom.com/search/2/geocode/${dest}.json?countrySet=IN&key=${API_KEY}`
           )
           .then(function (res) {
+            console.log(res);
             latdest =
             res.data.results[0].position.lat;
             lngdest = res.data.results[0].position.lon;
               
             axios
               .get(
-                `https://route.ls.hereapi.com/routing/7.2/calculateroute.json?apiKey=${GOOGLE_MAPS_API_KEY}&waypoint0=geo!${latorigin},${lngorigin}&waypoint1=geo!${latdest},${lngdest}&mode=fastest;car;traffic:disabled`
+                `https://api.tomtom.com/routing/1/calculateRoute/${latorigin}%2C${lngorigin}%3A${latdest}%2C${lngdest}/json?computeBestOrder=true&traffic=false&travelMode=car&key=${API_KEY}`
               )
               .then(function (response) {
-                time = response.data.response.route[0].summary.baseTime;
-                distance = response.data.response.route[0].summary.distance;
+                console.log(response);
+                time = response.data.routes[0].summary.travelTimeInSeconds;
+                distance = response.data.routes[0].summary.lengthInMeters;
                 let hr, min, km, m;
                 if (distance > 1000) {
                   km = Math.floor(distance / 1000);
