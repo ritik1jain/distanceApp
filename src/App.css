@@ -11,9 +11,8 @@
 .btnn {
   background-color: #4eae6f;
   color: white;
-  font-size: 18px;
+  font-size: 1.2vw;
   font-weight: 600;
-  width: 30%;
   float: right;
 }
 

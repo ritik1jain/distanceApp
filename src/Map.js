@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import GOOGLE_MAPS_API_KEY from './secrets';
+import {GOOGLE_MAPS_API_KEY} from './secrets';
 import './map.css'
 class Map extends Component {
     constructor(props) {
