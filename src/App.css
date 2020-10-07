@@ -3,20 +3,21 @@
   color: black;
 }
 .header {
-  color: #34eb8c;
+  color: #0ceb1e;
 
 }
 #head {
   margin-bottom: 50px;
   margin-top: 50px;
-  color: #34eb8c;
+  color: #0ceb1e;
 
 }
 .btnn {
-  background-color: #34eb8c;
+  background-color: #0ceb1e;
   color: white;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
+  width: 175px;
 }
 
 .label {
@@ -36,4 +37,8 @@
 .mar {
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.pd {
+  padding-left: 3px;
 }

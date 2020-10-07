@@ -86,10 +86,10 @@ class App extends Component {
               <div className='row justify-content-between'>
                 <div className='col-6'>
                   <FormGroup className="row">
-                    <Label htmlFor='origin' className="label col-3">
+                    <Label htmlFor='origin' className="text-center label col-3 col-sm-3">
                       Origin:
                     </Label>
-                    <Col className="col-8">
+                    <Col className="col-8 col-sm-8">
                       <Input className="inp"
                         type='text'
                         id='origin'
@@ -105,7 +105,7 @@ class App extends Component {
                 </div>
                 <div className='col-6'>
                   <FormGroup className="row">
-                    <Label htmlFor='dest'  className="label col-3">
+                    <Label htmlFor='dest'  className="text-center label col-3">
                       Destination:
                     </Label>
                     <Col className="col-8 ">
@@ -125,8 +125,8 @@ class App extends Component {
                 </div>
                 <div className="row justify-content-end">
                 <div className='col-6'>
-                  <FormGroup row>
-                    <Col md={{ size: 8, offset:3 }}>
+                  <FormGroup className="row justify-content-end">
+                    <Col className="col-5 pd">
                       <Button type='submit' size="sm" block className="btnn">
                         Calculate
                       </Button>
