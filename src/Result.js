@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Loading } from './Loading';
 import axios from 'axios';
-import {GOOGLE_MAPS_API_KEY, API_KEY, API_KEYL} from './secrets';
+import {GOOGLE_MAPS_API_KEY, API_KEY, API_KEYL, API_KEYO} from './secrets';
 import Map from './Map';
 import './result.css'
 class Result extends Component {
@@ -34,28 +34,28 @@ class Result extends Component {
     const self = this;
     axios
       .get(
-        `https://us1.locationiq.com/v1/search.php?key=${API_KEYL}&q=${origin}&countrycodes=in&format=json`
+        `https://api.opencagedata.com/geocode/v1/json?q=${origin}&countrycode=in&key=${API_KEYO}`
       )
       .then(function (res) {
         console.log(res);
         latorigin =
-        res.data[0].lat
+        res.data.results[0].geometry.lat;
         lngorigin =
-        res.data[0].lon;
+        res.data.results[0].geometry.lng;
 
         axios
           .get(
-            `https://us1.locationiq.com/v1/search.php?key=${API_KEYL}&q=${dest}&countrycodes=in&format=json`
+            `https://api.opencagedata.com/geocode/v1/json?q=${dest}&countrycode=in&key=${API_KEYO}`
           )
           .then(function (res) {
             console.log(res);
             latdest =
-            res.data[0].lat;
-            lngdest = res.data[0].lon;
+            res.data.results[0].geometry.lat;
+            lngdest = res.data.results[0].geometry.lng;
               
             axios
               .get(
-                `https://api.tomtom.com/routing/1/calculateRoute/${latorigin}%2C${lngorigin}%3A${latdest}%2C${lngdest}/json?computeBestOrder=true&traffic=false&travelMode=car&key=${API_KEY}`
+                `https://api.tomtom.com/routing/1/calculateRoute/${encodeURI(`${latorigin},${lngorigin}:${latdest},${lngdest}`)}/json?computeBestOrder=true&traffic=false&travelMode=car&key=${API_KEY}`
               )
               .then(function (response) {
                 console.log(response);
@@ -89,6 +89,9 @@ class Result extends Component {
                     dest: lngdest,
                   },
                 });
+              })
+              .catch(function(error) {
+                console.log(error);
               });
           })
           .catch(function (error) {
@@ -103,7 +106,7 @@ class Result extends Component {
         console.log(error);
         self.setState({
           error:
-            'Entered destination pin does not exists. Provide valid pin code.',
+            'Entered origin pin does not exists. Provide valid pin code.',
         });
       });
   }
