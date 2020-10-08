@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Loading } from './Loading';
 import axios from 'axios';
-import {GOOGLE_MAPS_API_KEY, API_KEY} from './secrets';
+import {GOOGLE_MAPS_API_KEY, API_KEY, API_KEYL} from './secrets';
 import Map from './Map';
 import './result.css'
 class Result extends Component {
@@ -34,24 +34,24 @@ class Result extends Component {
     const self = this;
     axios
       .get(
-        `https://api.tomtom.com/search/2/geocode/${origin}.json?countrySet=IN&key=${API_KEY}`
+        `https://us1.locationiq.com/v1/search.php?key=${API_KEYL}&q=${origin}&countrycodes=in&format=json`
       )
       .then(function (res) {
         console.log(res);
         latorigin =
-        res.data.results[0].position.lat;
+        res.data[0].lat
         lngorigin =
-        res.data.results[0].position.lon;
+        res.data[0].lon;
 
         axios
           .get(
-            `https://api.tomtom.com/search/2/geocode/${dest}.json?countrySet=IN&key=${API_KEY}`
+            `https://us1.locationiq.com/v1/search.php?key=${API_KEYL}&q=${dest}&countrycodes=in&format=json`
           )
           .then(function (res) {
             console.log(res);
             latdest =
-            res.data.results[0].position.lat;
-            lngdest = res.data.results[0].position.lon;
+            res.data[0].lat;
+            lngdest = res.data[0].lon;
               
             axios
               .get(
